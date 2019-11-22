@@ -53,6 +53,9 @@ double Lassonen(double DistanceT, double DistanceX) {
 	}
 
 
+	//return type is array
+	//return nodet0, nodet1, nodet2, nodet3, nodet4, nodet5; 
+
 }
 double secondNode(double Tn, double Tnplus1, double DistanceT, double DistanceX) {
 	double Tiplus1;
