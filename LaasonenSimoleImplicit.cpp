@@ -7,7 +7,7 @@ double secondNode(double Tn, double Tnplus1, double DistanceT, double DistanceX)
 double ComputeNode(double DistanceT, double DistanceX, double Tinplus1, double Tin, double Timins1nplus1);
 
 
-double Lassonen(double DistanceT, double DistanceX) {
+void Lassonen(double DistanceT, double DistanceX) {
 
 	double nodet0[311], nodet1[311], nodet2[311], nodet3[311], nodet4[311], nodet5[311];
 
@@ -36,6 +36,7 @@ double Lassonen(double DistanceT, double DistanceX) {
 	nodet3[1] = secondNode(nodet2[0], nodet3[0], DistanceT, DistanceX);
 	for (int n = 2; n < 311; n++) {
 		nodet3[n] = ComputeNode(DistanceT, DistanceX, nodet3[n - 1], nodet2[n - 1], nodet3[n - 2]);
+		std::cout << nodet3[n] << "\n";
 	}
 
 	//nodet4 temperature
@@ -71,5 +72,5 @@ double ComputeNode(double DistanceT, double DistanceX, double Tinplus1, double T
 	return Tiplus1nplus1;
 
 
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 }

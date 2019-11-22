@@ -129,6 +129,11 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Richardson.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CrankNicholson.h" />
+    <ClInclude Include="DuFortFrankel.h" />
+    <ClInclude Include="LaasonenSimoleImplicit.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

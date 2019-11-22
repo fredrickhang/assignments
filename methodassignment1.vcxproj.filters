@@ -31,4 +31,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DuFortFrankel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CrankNicholson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LaasonenSimoleImplicit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

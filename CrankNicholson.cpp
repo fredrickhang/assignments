@@ -7,7 +7,7 @@ double secondNode(double DistanceT, double DistanceX, double Tin, double Tinplus
 double ComputeNode(double DistanceT, double DistanceX, double Tin, double Tinplus1, double Tiplus1n, double Timins1n, double Timins1nplus1);
 
 
-double CrankNicholson(double DistanceT, double DistanceX) {
+void CrankNicholson(double DistanceT, double DistanceX) {
 
 	double nodet0[311];
 	double nodet1[311];
@@ -33,6 +33,8 @@ double CrankNicholson(double DistanceT, double DistanceX) {
 	nodet2[1] = secondNode(DistanceT, DistanceX, nodet1[0], nodet2[0], nodet1[1]);
 	for (int n = 2; n < 311; n++) {
 		nodet2[n] = ComputeNode(DistanceT, DistanceX, nodet1[n - 1], nodet2[n - 1], nodet1[n], nodet1[n - 2], nodet2[n - 2]);
+	
+		std::cout << nodet2[n]<<"\n";
 	}
 
 	//nodet3 temperature
@@ -63,7 +65,7 @@ double CrankNicholson(double DistanceT, double DistanceX) {
 double secondNode(double DistanceT, double DistanceX, double Tin, double Tinplus1, double Tiplus1n) {
 
 	double Tiplus1nplus1;
-	Tiplus1nplus1 = ((2 * (Tinplus1 - Tin) * (DistanceX * DistanceX) / (-D * DistanceT)) + 2 * Tinplus1 - 2 * Tiplus1n + 2 * Tin) / 2;
+	Tiplus1nplus1 = ((2 * (Tinplus1 - Tin) * (DistanceX * DistanceX) / (D * DistanceT)) + 2 * Tinplus1 - 2 * Tiplus1n + 2 * Tin) / 2;
 	return Tiplus1nplus1;
 
 }
@@ -71,7 +73,7 @@ double secondNode(double DistanceT, double DistanceX, double Tin, double Tinplus
 double ComputeNode(double DistanceT, double DistanceX, double Tin, double Tinplus1, double Tiplus1n, double Timins1n, double Timins1nplus1) {
 
 	double Tiplus1nplus1;
-	Tiplus1nplus1 = (2 * (Tinplus1 - Tin) * (DistanceX * DistanceX) / (-D * DistanceT)) + 2 * Tinplus1 - Timins1nplus1 - Tiplus1n + 2 * Tin - Timins1n;
+	Tiplus1nplus1 = (2 * (Tinplus1 - Tin) * (DistanceX * DistanceX) / (D * DistanceT)) + 2 * Tinplus1 - Timins1nplus1 - Tiplus1n + 2 * Tin - Timins1n;
 	return Tiplus1nplus1;
 
 }
