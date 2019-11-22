@@ -3,6 +3,10 @@
 
 #define D 93// diffusivity of D = 93 cm2/hr.
 
+double secondNode(double DistanceT, double DistanceX, double Tin, double Tinplus1, double Tiplus1n);
+double ComputeNode(double DistanceT, double DistanceX, double Tin, double Tinplus1, double Tiplus1n, double Timins1n, double Timins1nplus1);
+
+
 double CrankNicholson(double DistanceT, double DistanceX) {
 
 	double nodet0[311];
