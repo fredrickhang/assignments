@@ -42,7 +42,7 @@ void Richardson(double D, double deltaT, double deltaX) {
 	double node3[621];
 	node3[0] = 149;
 	node3[620] = 149;
-	for (int i = 0; i < 620; i++) {
+	for (int i = 1; i < 620; i++) {
 		node3[i] = computeNodeR(node2[i - 1], node1[i], node2[i + 1], node1[i], D, deltaT, deltaX);
 		//std::cout << node3[i]<<"\n";
 	}
@@ -51,7 +51,7 @@ void Richardson(double D, double deltaT, double deltaX) {
 	double node4[621];
 	node4[0] = 149;
 	node4[620] = 149;
-	for (int i = 0; i < 620; i++) {
+	for (int i = 1; i < 620; i++) {
 		node4[i] = computeNodeR(node3[i - 1], node2[i], node3[i + 1], node2[i], D, deltaT, deltaX);
 		//std::cout << node4[i] << "\n";
 	}
@@ -61,7 +61,7 @@ void Richardson(double D, double deltaT, double deltaX) {
 	double node5[621];
 	node5[0] = 149;
 	node5[620] = 149;
-	for (int i = 0; i < 619; i++) {
+	for (int i = 1; i < 620; i++) {
 		node5[i] = computeNodeR(node4[i - 1], node3[i], node4[i + 1], node3[i], D, deltaT, deltaX);
 		//std::cout << node5[i] << "\n";
 	}
