@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <iostream>
-
+using namespace std;
 #define D 0.0093// diffusivity of D = 93 cm2/hr.
 
 double Ci_1(double ci, double bi);
@@ -16,7 +16,7 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 	double ci_[621];
 	double di_[621];
 
-	double DistanceT, DistanceX;
+	//double DistanceT, DistanceX;
 	DistanceT = 0.01;
 	DistanceX = 0.05;
 	double Di[621];
@@ -63,7 +63,7 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 	}
 
 
-	return 0;
+	//return 0;
 }
 
 double Ci_1(double ci, double bi) {

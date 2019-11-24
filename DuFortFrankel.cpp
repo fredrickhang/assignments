@@ -8,8 +8,8 @@
 
 using namespace std;
 
-double computeNode(double iBackwordn, double inBackword, double iForwardn, double D, double deltaT, double deltaX);
-double nextNode(double in, double iForwardn, double iBackwardn, double D, double deltaT, double deltaX);
+double computeNodeD(double iBackwordn, double inBackword, double iForwardn, double D, double deltaT, double deltaX);
+double nextNodeD(double in, double iForwardn, double iBackwardn, double D, double deltaT, double deltaX);
 
 void DufortFrankel(double D, double deltaT,double deltaX) {
 	//n=0
@@ -26,7 +26,7 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	node1[0] = 149;
 	node1[620] = 149;
 	for (int i = 1; i < 620; i++) {
-		node1[i] = nextNode(node0[i],node0[i+1],node0[i-1],D,deltaT,deltaX);
+		node1[i] = nextNodeD(node0[i],node0[i+1],node0[i-1],D,deltaT,deltaX);
 		//std::cout << node1[i] << "\n";
 	}
 	//n=2
@@ -35,7 +35,7 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	node2[0] = 149;
 	node2[620] = 149;
 	for (int i = 1; i < 620; i++) {
-		node2[i] = computeNode(node1[i-1], node0[i], node1[i + 1], D, deltaT, deltaX);
+		node2[i] = computeNodeD(node1[i-1], node0[i], node1[i + 1], D, deltaT, deltaX);
 		//std::cout << node2[i]<<"\n";
 	}
 	
@@ -45,7 +45,7 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	node3[0] = 149;
 	node3[620] = 149;
 	for (int i = 0; i < 620; i++) {
-		node3[i]= computeNode(node2[i-1], node1[i], node2[i + 1], D, deltaT, deltaX);
+		node3[i]= computeNodeD(node2[i-1], node1[i], node2[i + 1], D, deltaT, deltaX);
 		//std::cout << node3[i]<<"\n";
 	}
 	//n4
@@ -54,7 +54,7 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	node4[0] = 149;
 	node4[620] = 149;
 	for (int i = 0; i < 620; i++) {
-		node4[i] = computeNode(node3[i - 1], node2[i], node3[i + 1], D, deltaT, deltaX);
+		node4[i] = computeNodeD(node3[i - 1], node2[i], node3[i + 1], D, deltaT, deltaX);
 		//std::cout << node4[i] << "\n";
 	}
 
@@ -64,7 +64,7 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	node5[0] = 149;
 	node5[620] = 149;
 	for (int i = 0; i < 619; i++) {
-		node5[i] = computeNode(node4[i - 1], node3[i], node4[i + 1], D, deltaT, deltaX);
+		node5[i] = computeNodeD(node4[i - 1], node3[i], node4[i + 1], D, deltaT, deltaX);
 		//std::cout << node5[i] << "\n";
 	}
 	ofstream myfile;
@@ -100,14 +100,14 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 
 }
 
-double nextNode(double in, double iForwardn, double iBackwardn, double D, double deltaT, double deltaX ) {
+double nextNodeD(double in, double iForwardn, double iBackwardn, double D, double deltaT, double deltaX ) {
 	double Tinplus1;
 	Tinplus1 = in + ( D * deltaT / (deltaX * deltaX)) * (iForwardn - 2 * in + iBackwardn);
 	return Tinplus1;
 
 }
 
-double computeNode(double iBackwordn,double inBackword, double iForwardn, double D, double deltaT, double deltaX) {
+double computeNodeD(double iBackwordn,double inBackword, double iForwardn, double D, double deltaT, double deltaX) {
 	double Tinplus1;
 	Tinplus1 = ((1 - 2 * (D) * deltaT / (deltaX * deltaX)) * inBackword + (2 * (D) * deltaT / (deltaX * deltaX)) * (iForwardn + iBackwordn)) / (1 + 2 * (D) * deltaT / (deltaX * deltaX));
 	return Tinplus1;

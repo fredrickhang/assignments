@@ -9,15 +9,19 @@ void ASolution(double tSur,double tIn,double D,double m,double L,double deltaT,d
 	double t = 0;
 	double node[10];
 	int j = 1;
-	for (int i = 0; i < m;i++) {
-	
-	tNext = tSur + 2 * (tIn - tSur) * (exp(-D * ((j * pi / L) * (j * pi / L)) * t) * (1 - pow(-1, j) / (j * pi)) * (sin((j * pi * x) / L)));
-	x = x + deltaX;
-	t = t + deltaT;
-	j++;
-	node[i] = tNext;
-	cout << tNext<<"\n";
-	
+	double sum = 0;
+	for (int i = 0; i < m; i++) {
+		if (j <= m) {
+			sum = sum + (exp( -1* D * ((j * pi / L) * (j * pi / L)) * t) * (1 - pow(-1, j) / (j * pi)) * (sin((j * pi * x) / L)));
+			x = x + deltaX;
+			t = t + deltaT;
+			j++;
+			tNext = tSur + 2 * (tIn - tSur) * sum;
+			node[i] = tNext;
+			cout << tNext << "\n";
+		}
+		
+
 	}
 
 
