@@ -74,7 +74,10 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 	for (int j = 2; j < 51; j++) {
 		double T=0;
 		T = 0.01 * j;
-		cout << "time is " << T << endl;
+		if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+			cout << "time is " << T << endl;
+		}
+		
 		for (int i = 1; i < 620; i++) {
 			Di[i] = (nodetnmins1[i + 1] - 2 * nodetnmins1[i] + nodetnmins1[i - 1]) + 2 * (DistanceX * DistanceX) * nodetnmins1[i] / (D * DistanceT);
 		}
@@ -85,15 +88,20 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 			if (n == 1) {
 				ci_[n] = Ci_1(ci, bi);
 				di_[n] = 149;
-				
-				cout << di_[n] << endl;
+				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+					cout << di_[n] << endl;
+				}
+				//cout << di_[n] << endl;
 			}
 			else if (n > 1) {
 				ci_[n] = Ci_n(ci, bi, ai, ci_[n - 1]);
 				di_[n] = Di_n(ai, bi, ci_[n - 1], Di[n], di_[n - 1]);
 				nodetn[n] = di_[n] - ci_[n] * nodet1[n - 1];
 				T = 0.01 * j;
-				cout << nodetn[n] << endl;
+				
+				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+					cout << nodetn[n] << endl;
+				}
 			}
 
 		}
