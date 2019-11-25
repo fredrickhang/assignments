@@ -13,6 +13,10 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 
 	double nodet0[621];
 	double nodet1[621];
+	double nodetnmins1[621];
+	double nodetn[621];
+	
+	
 	double ci_[621];
 	double di_[621];
 
@@ -24,9 +28,10 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 		nodet0[i] = 38;
 
 	}
+
+	//nodet1 temperature
 	nodet0[0] = 149;
 	for (int i = 1; i < 620; i++) {
-
 		Di[i] = (nodet0[i + 1] - 2 * nodet0[i] + nodet0[i - 1]) + 2 * (DistanceX * DistanceX) * nodet0[i] / (D * DistanceT);
 
 	}
@@ -34,12 +39,11 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 
 	nodet0[1] = 149;
 	nodet1[1] = 149;
+
 	double ai, bi, ci;
-	//ai = -(DistanceT * D) / (DistanceX * DistanceX);
+	
 	ai = -1;
-	//bi = 2 * (DistanceT * D) / (DistanceX * DistanceX) + 1;
 	bi = 2 + (2 * (DistanceX * DistanceX)) / (DistanceT * D);
-	//ci = -(DistanceT * D) / (DistanceX * DistanceX);
 	ci = -1;
 
 	cout << ai << "  " << bi << "   " << ci << endl;
@@ -55,12 +59,50 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 		else if (n > 1) {
 			ci_[n] = Ci_n(ci, bi, ai, ci_[n - 1]);
 			di_[n] = Di_n(ai, bi, ci_[n - 1], Di[n], di_[n - 1]);
-			//cout << di_[n] << endl;
 			nodet1[n] = di_[n] - ci_[n] * nodet1[n - 1];
 			cout << nodet1[n] << endl;
 		}
 
 	}
+
+	//other note temperature
+	for (int i = 0; i < 621; i++) {
+		nodetnmins1[i] = nodet1[i];
+		
+	}
+
+	for (int j = 2; j < 51; j++) {
+		double T=0;
+		T = 0.01 * j;
+		cout << "time is " << T << endl;
+		for (int i = 1; i < 620; i++) {
+			Di[i] = (nodetnmins1[i + 1] - 2 * nodetnmins1[i] + nodetnmins1[i - 1]) + 2 * (DistanceX * DistanceX) * nodetnmins1[i] / (D * DistanceT);
+		}
+		nodetn[1] = 149;
+
+		for (int n = 0; n < 621; n++) {
+			
+			if (n == 1) {
+				ci_[n] = Ci_1(ci, bi);
+				di_[n] = 149;
+				
+				cout << di_[n] << endl;
+			}
+			else if (n > 1) {
+				ci_[n] = Ci_n(ci, bi, ai, ci_[n - 1]);
+				di_[n] = Di_n(ai, bi, ci_[n - 1], Di[n], di_[n - 1]);
+				nodetn[n] = di_[n] - ci_[n] * nodet1[n - 1];
+				T = 0.01 * j;
+				cout << nodetn[n] << endl;
+			}
+
+		}
+		for (int i = 0; i < 621; i++) {
+			nodetnmins1[i] = nodetn[i];
+		}
+	}
+
+
 
 
 	//return 0;
