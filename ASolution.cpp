@@ -16,7 +16,7 @@ void ASolution(double tSur,double tIn,double D,double m,double L,double deltaT,d
 		sum = 0;
 		for (int i = 1; i < m; i++) {
 			//sum = 0;
-			sum = sum + ((exp((-D) * ((i * pi / L) * (i * pi / L)) * 0.03) )* ((1 - pow(-1, i)) / (i * pi)) * (sin((i * pi * x) / L)));
+			sum = sum + ((exp((-D) * ((i * pi / L) * (i * pi / L)) * 0.04) )* ((1 - pow(-1, i)) / (i * pi)) * (sin((i * pi * x) / L)));
 			//cout << sum << endl;
 		}
 		x = x + deltaX;
