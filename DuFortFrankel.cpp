@@ -82,7 +82,7 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	for (int i = 1; i < 620; i++) {
 		node1[i] = nodet1[i+2];
 			//nextNodeD(node0[i],node0[i+1],node0[i-1],D,deltaT,deltaX);
-		//std::cout << node1[i] << "\n";
+		std::cout << node1[i] << "\n";
 	}
 	
 	double nodenext[621];
