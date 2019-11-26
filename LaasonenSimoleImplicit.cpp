@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <iostream>
+#include<fstream>
+#include<ostream>
+
 using namespace std;
 #define D 0.0093// diffusivity of D = 93 cm2/hr.
 
@@ -34,6 +37,9 @@ void Lassonen(double DistanceT, double DistanceX) {
 	
 		cout << ai <<"  "<< bi <<"   "<< ci << endl;
 		
+		ofstream myfile;
+		myfile.open("LaasonenResultFile.txt");
+
 		for (int n = 0; n < 621; n++) {
 			if (n == 1) {
 			   ci_[n]= Ci_1L(ci, bi);
@@ -62,6 +68,7 @@ void Lassonen(double DistanceT, double DistanceX) {
 
 			if (T == 0.1 || T==0.2 || T==0.3 || T==0.4 || T==0.5) {
 				cout << "time is " << T << endl;
+				myfile << "time is" << T <<"\n";
 			}
 
 			//cout << "time is " << T << endl;
@@ -77,6 +84,7 @@ void Lassonen(double DistanceT, double DistanceX) {
 					di_[n] = 149;
 					if (T == 0.1 ||T== 0.2 || T==0.3 || T==0.4 ||T== 0.5) {
                         cout << di_[n] << endl;
+						myfile << di_[n] << "\n";
 					}
 					
 				}
@@ -87,6 +95,7 @@ void Lassonen(double DistanceT, double DistanceX) {
 					nodetn[n] = di_[n] - ci_[n] * nodetn[n - 1];
 					if (T == 0.1 || T==0.2 || T==0.3 || T==0.4 || T==0.5) {
 						cout << nodetn[n] << endl;
+						myfile << nodetn[n] << "\n";
 					}
 
 				}
