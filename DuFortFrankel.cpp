@@ -39,12 +39,14 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 
 	nodet0[1] = 149;
 	nodet1[0] = 149;
-	double ai, bi, ci;
-	ai = -(deltaT * D) / (deltaX * deltaX);
-	bi = 2 * (deltaT * D) / (deltaX * deltaX) + 1;
-	ci = -(deltaT * D) / (deltaX * deltaX);
 
-	cout << ai << "  " << bi << "   " << ci << endl;
+
+	double ai, bi, ci;
+	ai = -(deltaT * 93) / (deltaX * deltaX);
+	bi = 2 * (deltaT * 93) / (deltaX * deltaX) + 1;
+	ci = -(deltaT * 93) / (deltaX * deltaX);
+
+	//cout << ai << "  " << bi << "   " << ci << endl;
 	//calculate ci_
 	ci_[1] = ci / bi;
 	for (int i = 2; i < 622; i++) {
@@ -62,10 +64,10 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	Di_[621] = ((38 - ai * 149) - ai * Di_[620]) / (bi - ai * ci_[620]);
 	//cout << Di_[621];
 	nodet1[621] = Di_[621];
-	cout << nodet1[621] << endl;
+	//cout << nodet1[621] << endl;
 	for (int i = 620; i > 0; i--) {
 		nodet1[i] = Di_[i] - ci_[i] * nodet1[i + 1];
-		cout << i << " " << nodet1[i] << endl;
+		//cout << i << " " << nodet1[i] << endl;
 	}
 
 
@@ -80,7 +82,7 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	node1[0] = 149;
 	node1[620] = 149;
 	for (int i = 1; i < 620; i++) {
-		node1[i] = nodet1[i+2];
+		node1[i] = nodet1[i];
 			//nextNodeD(node0[i],node0[i+1],node0[i-1],D,deltaT,deltaX);
 		std::cout << node1[i] << "\n";
 	}
@@ -156,12 +158,12 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 
 }
 
-double nextNodeD(double in, double iForwardn, double iBackwardn, double D, double deltaT, double deltaX ) {
-	double Tinplus1;
-	Tinplus1 = in + ( D * deltaT / (deltaX * deltaX)) * (iForwardn - 2 * in + iBackwardn);
-	return Tinplus1;
-
-}
+//double nextNodeD(double in, double iForwardn, double iBackwardn, double D, double deltaT, double deltaX ) {
+//	double Tinplus1;
+//	Tinplus1 = in + ( D * deltaT / (deltaX * deltaX)) * (iForwardn - 2 * in + iBackwardn);
+//	return Tinplus1;
+//
+//}
 
 double computeNodeD(double iBackwordn,double inBackword, double iForwardn, double D, double deltaT, double deltaX) {
 	double Tinplus1;
