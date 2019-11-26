@@ -46,7 +46,7 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	bi = 2 * (deltaT * 93) / (deltaX * deltaX) + 1;
 	ci = -(deltaT * 93) / (deltaX * deltaX);
 
-	//cout << ai << "  " << bi << "   " << ci << endl;
+	cout << ai << "  " << bi << "   " << ci << endl;
 	//calculate ci_
 	ci_[1] = ci / bi;
 	for (int i = 2; i < 622; i++) {
@@ -64,12 +64,11 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	Di_[621] = ((38 - ai * 149) - ai * Di_[620]) / (bi - ai * ci_[620]);
 	//cout << Di_[621];
 	nodet1[621] = Di_[621];
-	//cout << nodet1[621] << endl;
+	cout << nodet1[621] << endl;
 	for (int i = 620; i > 0; i--) {
 		nodet1[i] = Di_[i] - ci_[i] * nodet1[i + 1];
 		//cout << i << " " << nodet1[i] << endl;
 	}
-
 
 
 
