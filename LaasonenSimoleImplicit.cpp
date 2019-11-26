@@ -29,7 +29,7 @@ void Lassonen(double DistanceT, double DistanceX) {
 		}
 	
 		nodet0[1] = 149;
-		nodet1[1] = 149;
+		nodet1[0] = 149;
 		double ai,bi, ci;
 		ai = -(DistanceT * D) / (DistanceX * DistanceX);
 		bi = 2 * (DistanceT * D) / (DistanceX * DistanceX) + 1;
@@ -37,13 +37,20 @@ void Lassonen(double DistanceT, double DistanceX) {
 	
 		cout << ai <<"  "<< bi <<"   "<< ci << endl;
 		
-		ofstream myfile;
-		myfile.open("LaasonenResultFile.txt");
+		//ofstream myfile;
+		//myfile.open("LaasonenResultFile.txt");
+		//for (int i = 1; i < 622; i++) {
+
+		//	nodet1[i] = (nodet0[i]-ai*nodet1[i-1]) / bi;
+		//	//cout << nodet1[i] << endl;
+		//}
+		nodet1[1] = (nodet0[1] - ai * nodet1[0]) / bi;
+			
 
 		for (int n = 0; n < 621; n++) {
 			if (n == 1) {
 			   ci_[n]= Ci_1L(ci, bi);
-			   di_[n] =149;
+			   di_[n] =nodet1[1];
 			   cout << di_[n] << endl;
 			}
 			else if (n > 1) {
@@ -68,7 +75,7 @@ void Lassonen(double DistanceT, double DistanceX) {
 
 			if (T == 0.1 || T==0.2 || T==0.3 || T==0.4 || T==0.5) {
 				cout << "time is " << T << endl;
-				myfile << "time is" << T <<"\n";
+				//myfile << "time is" << T <<"\n";
 			}
 
 			//cout << "time is " << T << endl;
@@ -77,40 +84,34 @@ void Lassonen(double DistanceT, double DistanceX) {
 				Di[i] = nodetnmins1[i ];
 			}
 			nodetn[1] = 149;
-			
-			for (int n = 0; n < 621; n++) {
-				if (n == 1) {
-					ci_[n] = Ci_1L(ci, bi);
-					di_[n] = 149;
-					if (T == 0.1 ||T== 0.2 || T==0.3 || T==0.4 ||T== 0.5) {
-                        cout << di_[n] << endl;
-						myfile << di_[n] << "\n";
-					}
-					
-				}
-				else if (n > 1) {
+			//nodetn[620] = 149;
+			for (int n = 1; n < 621; n++) {
+				    ci_[1] = ci / bi;
+					di_[1] = (nodetn[1] - ai * 149) / bi;
 					ci_[n] = Ci_nL(ci, bi, ai, ci_[n - 1]);
 					di_[n] = Di_nL(ai, bi, ci_[n - 1], nodetnmins1[n], di_[n - 1]);
 					//cout << di_[n] << endl;
 					nodetn[n] = di_[n] - ci_[n] * nodetn[n - 1];
 					if (T == 0.1 || T==0.2 || T==0.3 || T==0.4 || T==0.5) {
 						cout << nodetn[n] << endl;
-						myfile << nodetn[n] << "\n";
+						//myfile << nodetn[n] << "\n";
 					}
 
-				}
+				
 
 			}
 			for (int i = 0; i < 621; i++) {
 				nodetnmins1[i] = nodetn[i];
+				
 			}
-
+			//nodetn[1] = (nodetnm[1] - ai * nodet1[0]) / bi;
 		
 		}
 		
 		//return 0;
 
 }
+
 double Ci_1L(double ci, double bi) {
 	double ci_;
 	 ci_ = ci / bi;
