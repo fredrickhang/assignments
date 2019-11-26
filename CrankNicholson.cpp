@@ -36,13 +36,13 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 
 
 	double Di[620];
-	for (int i = 0; i < 622; i++) {
+	for (int i = 0; i < 621; i++) {
 		nodet0[i] = 38;
 
 	}
 
 	//nodet1 temperature
-	nodet0[0] = 149;
+	
 	for (int i = 1; i < 620; i++) {
 		Di[i] = (nodet0[i + 1] - 2 * nodet0[i] + nodet0[i - 1]) + 2 * (DistanceX * DistanceX) * nodet0[i] / (D * DistanceT);
 	}
@@ -58,12 +58,12 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 	//calculate di_
 	di_[1] = (Di[1] - ai * 149) / bi;
 	//di_[618] = ((38 - ai * 149) - ai * Di_[620]) / (bi - ai * ci_[620]);
-	//cout << Di_[621];
+	//cout << di_[1];
 	for (int i = 2; i < 620; i++) {
 		di_[i] = (Di[i] - ai * di_[i - 1]) / (bi - ai * ci_[i - 1]);
 		//cout << Di_[i] << endl;
 	}
-	di_[619] = ((Di[619] - ai * 149) - ai * di_[619]) / (bi - ai * ci_[619]);
+	di_[619] = ((Di[619] - ai * 149) - ai * di_[618]) / (bi - ai * ci_[618]);
 	//cout << Di_[621];
 	nodet1[619] = di_[619];
 	cout << nodet1[619] << endl;
