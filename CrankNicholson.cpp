@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <iostream>
+#include<fstream>
+#include<ostream>
+
 using namespace std;
 #define D 0.0093// diffusivity of D = 93 cm2/hr.
 
@@ -11,14 +14,14 @@ double Di(double Ti, double Tiplus1, double Timins1, double DistanceX, double Di
 
 void CrankNicholson(double DistanceT, double DistanceX) {
 
-	double nodet0[621];
-	double nodet1[621];
-	double nodetnmins1[621];
-	double nodetn[621];
+	double nodet0[622];
+	double nodet1[622];
+	double nodetnmins1[622];
+	double nodetn[622];
 	
 	
-	double ci_[621];
-	double di_[621];
+	double ci_[622];
+	double di_[622];
 
 	//double DistanceT, DistanceX;
 	DistanceT = 0.01;
@@ -31,10 +34,13 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 
 	//nodet1 temperature
 	nodet0[0] = 149;
-	for (int i = 1; i < 620; i++) {
+	for (int i = 1; i < 621; i++) {
 		Di[i] = (nodet0[i + 1] - 2 * nodet0[i] + nodet0[i - 1]) + 2 * (DistanceX * DistanceX) * nodet0[i] / (D * DistanceT);
 
 	}
+	
+	ofstream myfile;
+	myfile.open("CrankresultFile.txt");
 
 
 	nodet0[1] = 149;
@@ -76,9 +82,10 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 		T = 0.01 * j;
 		if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
 			cout << "time is " << T << endl;
+			myfile << "time is" << T << "\n";
 		}
 		
-		for (int i = 1; i < 620; i++) {
+		for (int i = 1; i < 621; i++) {
 			Di[i] = (nodetnmins1[i + 1] - 2 * nodetnmins1[i] + nodetnmins1[i - 1]) + 2 * (DistanceX * DistanceX) * nodetnmins1[i] / (D * DistanceT);
 		}
 		nodetn[1] = 149;
@@ -90,6 +97,7 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 				di_[n] = 149;
 				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
 					cout << di_[n] << endl;
+					myfile << di_[n] << "\n";
 				}
 				//cout << di_[n] << endl;
 			}
@@ -101,6 +109,7 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 				
 				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
 					cout << nodetn[n] << endl;
+					myfile << nodetn[n] << "\n";
 				}
 			}
 
