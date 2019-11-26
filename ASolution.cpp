@@ -1,4 +1,5 @@
 #include<iostream>
+#include<fstream>
 #include<math.h>
 using namespace std;
 const double pi = 3.1415926535897;
@@ -21,8 +22,8 @@ void ASolution(double tSur,double tIn,double D,double m,double L,double deltaT,d
 		x = x + deltaX;
 	   // cout << sum << endl;
 		tNext = tSur + (2 * (tIn - tSur) * sum);
-		myfile << tNext << "\n";
 		node[j] = tNext;
+		myfile << node[j] << "\n";
 
 		//cout << node[j] << endl;
 
