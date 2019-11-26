@@ -4,7 +4,7 @@
 #include<ostream>
 
 using namespace std;
-#define D 0.0093// diffusivity of D = 93 cm2/hr.
+#define D 93// diffusivity of D = 93 cm2/hr.
 
 double Ci_1(double ci, double bi);
 double Ci_n(double ci, double bi, double ai, double ci_0);
@@ -18,7 +18,7 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 	double nodet1[622];
 	double nodetnmins1[622];
 	double nodetn[622];
-	
+	 
 	
 	double ci_[622];
 	double di_[622];
@@ -26,98 +26,123 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 	//double DistanceT, DistanceX;
 	DistanceT = 0.01;
 	DistanceX = 0.05;
-	double Di[621];
-	for (int i = 0; i < 621; i++) {
+
+	double ai, bi, ci;
+
+	ai = -1;
+	bi = 2 + (2 * (DistanceX * DistanceX)) / (DistanceT * D);
+	ci = -1;
+	cout << ai << "  " << bi << "   " << ci << endl;
+
+
+	double Di[620];
+	for (int i = 0; i < 622; i++) {
 		nodet0[i] = 38;
 
 	}
 
 	//nodet1 temperature
 	nodet0[0] = 149;
-	for (int i = 1; i < 621; i++) {
+	for (int i = 1; i < 620; i++) {
 		Di[i] = (nodet0[i + 1] - 2 * nodet0[i] + nodet0[i - 1]) + 2 * (DistanceX * DistanceX) * nodet0[i] / (D * DistanceT);
-
 	}
 	
-	ofstream myfile;
-	myfile.open("CrankresultFile.txt");
-
-
-	nodet0[1] = 149;
-	nodet1[1] = 149;
-
-	double ai, bi, ci;
-	
-	ai = -1;
-	bi = 2 + (2 * (DistanceX * DistanceX)) / (DistanceT * D);
-	ci = -1;
-
-	cout << ai << "  " << bi << "   " << ci << endl;
-
-
-
-	for (int n = 0; n < 621; n++) {
-		if (n == 1) {
-			ci_[n] = Ci_1(ci, bi);
-			di_[n] = 149;
-			cout << di_[n] << endl;
-		}
-		else if (n > 1) {
-			ci_[n] = Ci_n(ci, bi, ai, ci_[n - 1]);
-			di_[n] = Di_n(ai, bi, ci_[n - 1], Di[n], di_[n - 1]);
-			nodet1[n] = di_[n] - ci_[n] * nodet1[n - 1];
-			cout << nodet1[n] << endl;
-		}
-
+	//ofstream myfile;
+	//myfile.open("CrankresultFile.txt");
+	//calculate ci_  
+	ci_[1] = ci / bi;
+	for (int i = 2; i < 620; i++) {
+		ci_[i] = ci / (bi - ai * ci_[i - 1]);
 	}
 
-	//other note temperature
-	for (int i = 0; i < 621; i++) {
-		nodetnmins1[i] = nodet1[i];
-		
+	//calculate di_
+	di_[1] = (Di[1] - ai * 149) / bi;
+	//di_[618] = ((38 - ai * 149) - ai * Di_[620]) / (bi - ai * ci_[620]);
+	//cout << Di_[621];
+	for (int i = 2; i < 620; i++) {
+		di_[i] = (Di[i] - ai * di_[i - 1]) / (bi - ai * ci_[i - 1]);
+		//cout << Di_[i] << endl;
+	}
+	di_[619] = ((Di[619] - ai * 149) - ai * di_[619]) / (bi - ai * ci_[619]);
+	//cout << Di_[621];
+	nodet1[619] = di_[619];
+	cout << nodet1[619] << endl;
+	for (int i = 618; i > 0; i--) {
+		nodet1[i] = di_[i] - ci_[i] * nodet1[i + 1];
+		cout << i << " " << nodet1[i] << endl;
 	}
 
-	for (int j = 2; j < 51; j++) {
-		double T=0;
-		T = 0.01 * j;
-		if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
-			cout << "time is " << T << endl;
-			myfile << "time is" << T << "\n";
-		}
-		
-		for (int i = 1; i < 621; i++) {
-			Di[i] = (nodetnmins1[i + 1] - 2 * nodetnmins1[i] + nodetnmins1[i - 1]) + 2 * (DistanceX * DistanceX) * nodetnmins1[i] / (D * DistanceT);
-		}
-		nodetn[1] = 149;
+	//nodet0[1] = 149;
+	//nodet1[1] = 149;
 
-		for (int n = 0; n < 621; n++) {
-			
-			if (n == 1) {
-				ci_[n] = Ci_1(ci, bi);
-				di_[n] = 149;
-				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
-					cout << di_[n] << endl;
-					myfile << di_[n] << "\n";
-				}
-				//cout << di_[n] << endl;
-			}
-			else if (n > 1) {
-				ci_[n] = Ci_n(ci, bi, ai, ci_[n - 1]);
-				di_[n] = Di_n(ai, bi, ci_[n - 1], Di[n], di_[n - 1]);
-				nodetn[n] = di_[n] - ci_[n] * nodet1[n - 1];
-				T = 0.01 * j;
-				
-				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
-					cout << nodetn[n] << endl;
-					myfile << nodetn[n] << "\n";
-				}
-			}
+	//
+	//
+	////cout << ai << "  " << bi << "   " << ci << endl;
 
-		}
-		for (int i = 0; i < 621; i++) {
-			nodetnmins1[i] = nodetn[i];
-		}
-	}
+
+
+	//for (int n = 0; n < 621; n++) {
+	//	if (n == 1) {
+	//		ci_[n] = Ci_1(ci, bi);
+	//		di_[n] = 149;
+	//		cout << di_[n] << endl;
+	//	}
+	//	else if (n > 1) {
+	//		ci_[n] = Ci_n(ci, bi, ai, ci_[n - 1]);
+	//		di_[n] = Di_n(ai, bi, ci_[n - 1], Di[n], di_[n - 1]);
+	//		nodet1[n] = di_[n] - ci_[n] * nodet1[n - 1];
+	//		cout << nodet1[n] << endl;
+	//	}
+
+	//}
+
+	////other note temperature
+	//for (int i = 0; i < 621; i++) {
+	//	nodetnmins1[i] = nodet1[i];
+	//	
+	//}
+
+	//for (int j = 2; j < 51; j++) {
+	//	double T=0;
+	//	T = 0.01 * j;
+	//	if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+	//		cout << "time is " << T << endl;
+	//		myfile << "time is" << T << "\n";
+	//	}
+	//	
+	//	for (int i = 1; i < 621; i++) {
+	//		Di[i] = (nodetnmins1[i + 1] - 2 * nodetnmins1[i] + nodetnmins1[i - 1]) + 2 * (DistanceX * DistanceX) * nodetnmins1[i] / (D * DistanceT);
+	//	}
+	//	nodetn[1] = 149;
+
+	//	for (int n = 0; n < 621; n++) {
+	//		
+	//		if (n == 1) {
+	//			ci_[n] = Ci_1(ci, bi);
+	//			di_[n] = 149;
+	//			if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+	//				cout << di_[n] << endl;
+	//				myfile << di_[n] << "\n";
+	//			}
+	//			//cout << di_[n] << endl;
+	//		}
+	//		else if (n > 1) {
+	//			ci_[n] = Ci_n(ci, bi, ai, ci_[n - 1]);
+	//			di_[n] = Di_n(ai, bi, ci_[n - 1], Di[n], di_[n - 1]);
+	//			nodetn[n] = di_[n] - ci_[n] * nodet1[n - 1];
+	//			T = 0.01 * j;
+	//			
+	//			if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+	//				cout << nodetn[n] << endl;
+	//				myfile << nodetn[n] << "\n";
+	//			}
+	//		}
+
+	//	}
+	//	for (int i = 0; i < 621; i++) {
+	//		nodetnmins1[i] = nodetn[i];
+	//	}
+	//}
 
 
 
