@@ -42,8 +42,32 @@ void Richardson(double D, double deltaT, double deltaX) {
 
 	for (int j = 0; j < 50; j++) {
 
-
-
+		switch (j)
+		{
+		case 8:
+			myfile <<"t=0.1" << "\n";
+			
+			break;
+		case 18:
+			myfile << "t=0.2" << "\n";
+			
+			break;
+		case 28:
+			myfile << "t=0.3" << "\n";
+			
+			break;
+		case 38:
+			myfile << "t=0.4" << "\n";
+			
+			break;
+		case 48:
+			myfile << "t=0.5" << "\n";
+			
+			break;
+		default:
+			break;
+		}
+		
 		for (int i = 0; i < 619; i++) {
 			nodenext[0] = 149;
 			nodelast[0] = 149;
@@ -54,15 +78,19 @@ void Richardson(double D, double deltaT, double deltaX) {
 			nodenext[i + 1] = computeNodeR(noden[i], noden[i + 1], noden[i + 2], nodelast[i + 1], D, deltaT, deltaX);
 
 
+		}
+
 			if (j == 8 || j == 18 || j == 28 || j == 38 || j == 48) {
 
-				myfile << nodenext[i + 1] << "\n";
+				for (int h = 0; h < 621;h++) {
+				
+				myfile << nodenext[h] << "\n";
+				}
+
 				
 
 			}
-
-		}
-		
+		//myfile << "149"<<"\n";
 		for (int i = 0; i < 621; i++) {
 			nodelast[i] = noden[i];
 			noden[i] = nodenext[i];
