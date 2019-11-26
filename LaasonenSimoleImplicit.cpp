@@ -38,7 +38,7 @@ void Lassonen(double DistanceT, double DistanceX) {
 		cout << ai <<"  "<< bi <<"   "<< ci << endl;
 		//calculate ci_
 		ci_[1] = ci / bi;
-		for (int i = 2; i < 622; i++) {
+		for (int i = 2; i < 620; i++) {
 			ci_[i] = ci / (bi - ai * ci_[i - 1]);
 		}
 
@@ -46,15 +46,15 @@ void Lassonen(double DistanceT, double DistanceX) {
 		Di_[1] = (38 - ai * 149) / bi;
 		//Di_[621] = ((38 - ai * 149) - ai * Di_[620]) / (bi - ai * ci_[620]);
 		//cout << Di_[621];
-		for (int i = 2; i < 621; i++) {
+		for (int i = 2; i < 620; i++) {
 			Di_[i] = (38 - ai * Di_[i - 1]) / (bi - ai * ci_[i - 1]);
 			//cout << Di_[i] << endl;
 		}
-		Di_[621] = ((38 - ai * 149) - ai * Di_[620]) / (bi - ai * ci_[620]);
+		Di_[619] = ((38 - ai * 149) - ai * Di_[618]) / (bi - ai * ci_[618]);
 		//cout << Di_[621];
-		nodet1[621] = Di_[621];
-		cout << nodet1[621] << endl;
-		for (int i = 620; i > 0; i--) {
+		nodet1[619] = Di_[619];
+		cout << nodet1[619] << endl;
+		for (int i = 618; i > 0; i--) {
 			nodet1[i] = Di_[i]-ci_[i] * nodet1[i + 1];
 			cout <<i<<" "<< nodet1[i] << endl;
 		}

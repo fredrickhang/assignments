@@ -8,7 +8,7 @@
 
 
 int main() {
-	DufortFrankel( 0.0093,0.01,0.05); 
+	//DufortFrankel( 0.0093,0.01,0.05); 
 	//Richardson(0.0093, 0.01, 0.05);
 	CrankNicholson(0.01, 0.05);
 	//Lassonen(0.01, 0.05);
