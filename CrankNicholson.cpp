@@ -47,8 +47,8 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 		Di[i] = (nodet0[i + 1] - 2 * nodet0[i] + nodet0[i - 1]) + 2 * (DistanceX * DistanceX) * nodet0[i] / (D * DistanceT);
 	}
 	
-	//ofstream myfile;
-	//myfile.open("CrankresultFile.txt");
+	ofstream myfile;
+	myfile.open("CrankresultFile.txt");
 	//calculate ci_  
 	ci_[1] = ci / bi;
 	for (int i = 2; i < 620; i++) {
@@ -66,10 +66,63 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 	di_[619] = ((Di[619] - ai * 149) - ai * di_[618]) / (bi - ai * ci_[618]);
 	//cout << Di_[621];
 	nodet1[619] = di_[619];
-	cout << nodet1[619] << endl;
+	//cout << nodet1[619] << endl;
 	for (int i = 618; i > 0; i--) {
 		nodet1[i] = di_[i] - ci_[i] * nodet1[i + 1];
-		cout << i << " " << nodet1[i] << endl;
+		//cout << i << " " << nodet1[i] << endl;
+	}
+
+	//other temperature
+	for (int i = 0; i < 620; i++) {
+		nodetnmins1[i] = nodet1[i];
+
+	}
+	for (int i = 1; i < 620; i++) {
+		Di[i] = (nodetnmins1[i + 1] - 2 * nodetnmins1[i] + nodetnmins1[i - 1]) + 2 * (DistanceX * DistanceX) * nodetnmins1[i] / (D * DistanceT);
+	}
+
+	for (int j = 2; j < 51; j++) {
+		double T = 0;
+		T = 0.01 * j;
+		if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+			cout << "time is " << T << endl;
+			myfile << "time is" << T << "\n";
+
+		}
+
+		di_[1] = (Di[1] - ai * 149) / bi;
+
+		//cout << Di_[621];
+		for (int i = 2; i < 620; i++) {
+			di_[i] = (Di[i] - ai * di_[i - 1]) / (bi - ai * ci_[i - 1]);
+			//cout << Di_[i] << endl;
+		}
+		di_[619] = ((Di[619] - ai * 149) - ai * di_[618]) / (bi - ai * ci_[618]);
+
+		nodetn[619] = di_[619];
+		cout << nodetn[619] << endl;
+
+		if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+			//cout << 619 << " " << nodetn[619] << endl;
+			myfile << nodetn[619] << "\n";
+		}
+
+		for (int i = 618; i > 0; i--) {
+			nodetn[i] = di_[i] - ci_[i] * nodetn[i + 1];
+
+			if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+				//cout << i << " " << nodetn[i] << endl;
+				myfile << nodetn[i] << "\n";
+			}
+
+		}
+
+		for (int i = 0; i < 620; i++) {
+			nodetnmins1[i] = nodetn[i];
+		}
+		for (int i = 1; i < 620; i++) {
+			Di[i] = (nodetnmins1[i + 1] - 2 * nodetnmins1[i] + nodetnmins1[i - 1]) + 2 * (DistanceX * DistanceX) * nodetnmins1[i] / (D * DistanceT);
+		}
 	}
 
 	//nodet0[1] = 149;

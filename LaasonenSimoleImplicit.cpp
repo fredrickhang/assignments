@@ -19,7 +19,7 @@ void Lassonen(double DistanceT, double DistanceX) {
 		double nodetn[621];
 
 		double ci_[622];
-		double di_[622];
+		//double di_[622];
 		double Di_[622];
 		//double DistanceT, DistanceX;
 		DistanceT = 0.01;
@@ -59,6 +59,51 @@ void Lassonen(double DistanceT, double DistanceX) {
 			cout <<i<<" "<< nodet1[i] << endl;
 		}
 		
+		//other temperature
+		for(int i = 0; i < 620; i++ ){
+			nodetnmins1[i] = nodet1[i];
+		
+		}
+
+		for (int j = 2; j < 51; j++) {
+			double T = 0;
+				T = 0.01 * j;
+				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+					cout << "time is " << T << endl;
+					
+				}
+
+			Di_[1] = (nodetnmins1[1] - ai * 149) / bi;
+			
+			//cout << Di_[621];
+			for (int i = 2; i < 620; i++) {
+				Di_[i] = (nodetnmins1[i] - ai * Di_[i - 1]) / (bi - ai * ci_[i - 1]);
+				//cout << Di_[i] << endl;
+			}
+			Di_[619] = ((nodetnmins1[619] - ai * 149) - ai * Di_[618]) / (bi - ai * ci_[618]);
+
+			nodetn[619] = Di_[619];
+			cout << nodetn[619] << endl;
+
+			if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+				cout << 619 << " " << nodetn[619] << endl;
+			}
+			
+			for (int i = 618; i > 0; i--) {
+				nodetn[i] = Di_[i] - ci_[i] * nodetn[i + 1];
+				
+				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
+				  cout << i << " " << nodetn[i] << endl;
+				}
+				
+			}
+
+			for (int i = 0; i < 620; i++) {
+				nodetnmins1[i] = nodetn[i];
+			}
+		 
+		}
+
 		//return nodet1;
 
 }
