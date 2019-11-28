@@ -1,4 +1,4 @@
-
+﻿
 #include "DuFortFrankel.h"
 #include "CrankNicholson.h"
 #include "LaasonenSimoleImplicit.h"
@@ -8,13 +8,13 @@
 
 
 int main() {
-	double node[622];//?????
+	double laasonenNode[622];//传出数组；
 	//double* laasonenT1 = Lassonen(0.01, 0.05);
 	//DufortFrankel( 0.0093,0.01,0.05); 
 	//Richardson(0.0093, 0.01, 0.05);
 	//CrankNicholson(0.01, 0.05);
 
-	Lassonen(0.01, 0.05,node);
+	Lassonen(0.01, 0.05,laasonenNode);
 	//cout << node[2];
 	//a = nextNode(149, 38, 38, 0.0093, 0.01, 0.05);
 
