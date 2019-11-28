@@ -11,14 +11,14 @@ double Ci_nL(double ci, double bi, double ai, double ci_0);
 double Di_1L(double di, double bi);
 double Di_nL(double ai, double bi, double ci_, double di, double di_0);
 
-void Lassonen(double DistanceT, double DistanceX) {
+void Lassonen(double DistanceT, double DistanceX, double nodet1[622]) {
 
 
 	    ofstream myfile;
 	    myfile.open("LaasonenResultFile.csv");
 
 	    double nodet0[622];
-		double nodet1[622];
+		//double nodet1[622];
 		double nodetnmins1[622];
 		double nodetn[621];
 

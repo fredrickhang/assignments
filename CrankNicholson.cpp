@@ -45,7 +45,7 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 	//nodet1 temperature
 	
 	for (int i = 1; i < 621; i++) {
-		Di[i] = (nodet0[i + 1] - 2 * nodet0[i] + nodet0[i - 1]) + 2 * (DistanceX * DistanceX) * nodet0[i] / (D * DistanceT)
+		Di[i] = (nodet0[i + 1] - 2 * nodet0[i] + nodet0[i - 1]) + 2 * (DistanceX * DistanceX) * nodet0[i] / (D * DistanceT);
 	}
 	
 	

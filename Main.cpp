@@ -8,11 +8,14 @@
 
 
 int main() {
+	double node[622];//?????
+	//double* laasonenT1 = Lassonen(0.01, 0.05);
 	//DufortFrankel( 0.0093,0.01,0.05); 
 	//Richardson(0.0093, 0.01, 0.05);
-	CrankNicholson(0.01, 0.05);
-	//Lassonen(0.01, 0.05);
-	
+	//CrankNicholson(0.01, 0.05);
+
+	Lassonen(0.01, 0.05,node);
+	//cout << node[2];
 	//a = nextNode(149, 38, 38, 0.0093, 0.01, 0.05);
 
 	//std::cout<<a;
