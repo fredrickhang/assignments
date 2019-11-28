@@ -13,6 +13,10 @@ double Di_nL(double ai, double bi, double ci_, double di, double di_0);
 
 void Lassonen(double DistanceT, double DistanceX) {
 
+
+	    ofstream myfile;
+	    myfile.open("LaasonenResultFile.csv");
+
 	    double nodet0[622];
 		double nodet1[622];
 		double nodetnmins1[622];
@@ -70,6 +74,8 @@ void Lassonen(double DistanceT, double DistanceX) {
 				T = 0.01 * j;
 				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
 					cout << "time is " << T << endl;
+					myfile << endl;
+					myfile << "time is" << ","<<T << ",";
 					
 				}
 
@@ -87,6 +93,7 @@ void Lassonen(double DistanceT, double DistanceX) {
 
 			if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
 				cout << 619 << " " << nodetn[619] << endl;
+				myfile << nodetn[619] << ",";
 			}
 			
 			for (int i = 618; i > 0; i--) {
@@ -94,6 +101,7 @@ void Lassonen(double DistanceT, double DistanceX) {
 				
 				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
 				  cout << i << " " << nodetn[i] << endl;
+				  myfile << nodetn[i] << ",";
 				}
 				
 			}
