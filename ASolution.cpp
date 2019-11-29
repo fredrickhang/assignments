@@ -11,20 +11,21 @@ void ASolution(double tSur,double tIn,double D,double m,double L,double deltaT,d
 	double sum = 0;
 	double node[622];
 	ofstream myfile;
-	myfile.open("ASresultFile.txt");
+	myfile.open("ASresultFile.csv");
 	for (int j = 1; j < 620; j++) {
 		sum = 0;
 		for (int i = 1; i < m; i++) {
 			//sum = 0;
-			sum = sum + ((exp((-D) * ((i * pi / L) * (i * pi / L)) * 0.04) )* ((1 - pow(-1, i)) / (i * pi)) * (sin((i * pi * x) / L)));
+			sum = sum + ((exp((-D) * ((i * pi / L) * (i * pi / L)) * 0.1) )* ((1 - pow(-1, i)) / (i * pi)) * (sin((i * pi * x) / L)));
 			//cout << sum << endl;
 		}
 		x = x + deltaX;
 	   // cout << sum << endl;
 		tNext = tSur + (2 * (tIn - tSur) * sum);
 		node[j] = tNext;
-		myfile << node[j] << "\n";
-		cout << node[j] << "\n";
+		myfile << node[j] << ",";
+		myfile << endl;
+		//cout << node[j] << "\n";
 
 		//cout << node[j] << endl;
 

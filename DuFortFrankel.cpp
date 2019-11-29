@@ -9,7 +9,6 @@
 using namespace std;
 
 double computeNodeD(double iBackwordn, double inBackword, double iForwardn, double D, double deltaT, double deltaX);
-double nextNodeD(double in, double iForwardn, double iBackwardn, double D, double deltaT, double deltaX);
 
 void DufortFrankel(double D, double deltaT,double deltaX) {
 	//n=0
@@ -90,7 +89,7 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 	double noden[621];
 	double nodelast[621];
 	ofstream myfile;
-	myfile.open("resultFile.txt");
+	myfile.open("resultFile.csv");
 	for (int i = 0; i < 621;i++) {
 		nodelast[i] = node0[i];
 		noden[i] = node1[i];
@@ -102,23 +101,23 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 		switch (j)
 		{
 		case 8:
-			myfile << "t=0.1" << "\n";
+			myfile << "t=0.1" << ",";
 
 			break;
 		case 18:
-			myfile << "t=0.2" << "\n";
+			myfile << "t=0.2" << ",";
 
 			break;
 		case 28:
-			myfile << "t=0.3" << "\n";
+			myfile << "t=0.3" << ",";
 
 			break;
 		case 38:
-			myfile << "t=0.4" << "\n";
+			myfile << "t=0.4" << ",";
 
 			break;
 		case 48:
-			myfile << "t=0.5" << "\n";
+			myfile << "t=0.5" << ",";
 
 			break;
 		default:
@@ -141,8 +140,9 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 			
 			for (int h = 0; h < 621; h++) {
 
-				myfile << nodenext[h] << "\n";
+				myfile << nodenext[h] << ",";
 			}
+			myfile << endl;
 				
 		}
 	
@@ -157,12 +157,6 @@ void DufortFrankel(double D, double deltaT,double deltaX) {
 
 }
 
-//double nextNodeD(double in, double iForwardn, double iBackwardn, double D, double deltaT, double deltaX ) {
-//	double Tinplus1;
-//	Tinplus1 = in + ( D * deltaT / (deltaX * deltaX)) * (iForwardn - 2 * in + iBackwardn);
-//	return Tinplus1;
-//
-//}
 
 double computeNodeD(double iBackwordn,double inBackword, double iForwardn, double D, double deltaT, double deltaX) {
 	double Tinplus1;
