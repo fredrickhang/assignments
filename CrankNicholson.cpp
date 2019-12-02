@@ -41,6 +41,8 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 		nodet0[i] = 38;
 
 	}
+	nodet0[0] = 149;
+	nodet0[620] = 149;
 	nodet1[0] = 149;
 	//nodet1 temperature
 	
@@ -73,6 +75,7 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 
 	//t=0.02 temperature
 	nodet1[620] = 149;
+	nodet1[0]=149;
 	for (int i = 0; i < 621; i++) {
 		nodetnmins1[i] = nodet1[i];
 	}
