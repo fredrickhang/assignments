@@ -11,7 +11,9 @@ double Ci_n(double ci, double bi, double ai, double ci_0);
 double Di_1(double di, double bi);
 double Di_n(double ai, double bi, double ci_, double di, double di_0);
 double Di(double Ti, double Tiplus1, double Timins1, double DistanceX, double DistanceT);
-
+/*
+compute Crank-Nicholson value
+*/
 void CrankNicholson(double DistanceT, double DistanceX) {
 
 	double nodet0[622];
@@ -32,7 +34,7 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 	ai = -1;
 	bi = 2 + (2 * (DistanceX * DistanceX)) / (DistanceT * D);
 	ci = -1;
-	cout << ai << "  " << bi << "   " << ci << endl;
+	
 	ofstream myfile;
 	myfile.open("CrankresultFile.csv");  //output excel
 
@@ -66,10 +68,10 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 
 	di_[619] = ((Di[619] - ai * 149) - ai * di_[618]) / (bi - ai * ci_[618]);
 	nodet1[619] = di_[619];
-	cout << nodet1[619] << endl;
+	//cout << nodet1[619] << endl;
 	for (int i = 618; i > 0; i--) {
 		nodet1[i] = di_[i] - ci_[i] * nodet1[i + 1];
-		cout << i << " " << nodet1[i] << endl;
+		
 	}
 
 
@@ -104,11 +106,11 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 		
 	nodetn[619] = di_[619];
 			
-	cout << " " << nodetn[619] << endl;	
+	
 		
 	for (int i = 618; i > 0; i--) {
 		nodetn[i] = di_[i] - ci_[i] * nodetn[i + 1];
-		cout << i << " " << nodetn[i] << endl;									
+										
 	}
 		
 	
@@ -117,7 +119,7 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 				double T = 0;
 	         T = 0.01 * j;
 	      if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
-		    cout << "time is " << T << endl;
+		  
 			myfile << endl;
 			myfile << "time is" << "," << T << ",";
 
@@ -144,7 +146,6 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 
 			//calculate di_
 			di_[1] = (Di[1] - ai * 149) / bi;
-			//di_[618] = ((38 - ai * 149) - ai * Di_[620]) / (bi - ai * ci_[620]);
 			//cout << di_[1];
 			for (int i = 2; i < 620; i++) {
 				di_[i] = (Di[i] - ai * di_[i - 1]) / (bi - ai * ci_[i - 1]);
@@ -154,25 +155,21 @@ void CrankNicholson(double DistanceT, double DistanceX) {
 			//cout << Di_[621];
 			nodetn[619] = di_[619];
 			if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
-				cout << " " << nodetn[619] << endl;
 				myfile << nodetn[619] << ",";
 			}
-			//cout << " " << nodetn[619] << endl;
-			//myfile << nodetn[i] << "\n";
 
 		    //cout << nodetn[619] << endl;
 			for (int i = 618; i > 0; i--) {
 				nodetn[i] = di_[i] - ci_[i] * nodetn[i + 1];
 
 				if (T == 0.1 || T == 0.2 || T == 0.3 || T == 0.4 || T == 0.5) {
-					cout << i << " " << nodetn[i] << endl;
 					myfile << nodetn[i] << ",";
 				}
 			}
 
 		}
 
-
+		myfile.close();
 
 	
 }
@@ -201,6 +198,7 @@ double Di_n(double ai, double bi, double ci_, double di, double di_0) {
 	double di_ = (di - ai * di_0) / (bi - ai * ci_);
 	return di_;
 }
+
 double Di(double Ti, double Tiplus1, double Timins1, double DistanceX, double DistanceT) {
 	double di = (-Ti / (DistanceT)* D) - (Tiplus1 - 2 * Ti + Timins1) / (DistanceX * DistanceX);
 	return di;
